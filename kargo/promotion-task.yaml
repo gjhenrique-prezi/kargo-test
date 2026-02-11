@@ -3,6 +3,8 @@ kind: PromotionTask
 metadata:
   name: testapp-promo-process
   namespace: testapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   vars:
     - name: gitopsRepo

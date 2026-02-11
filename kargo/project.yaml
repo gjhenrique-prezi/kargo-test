@@ -2,6 +2,8 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: Project
 metadata:
   name: testapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   promotionPolicies:
     - stage: preprod
