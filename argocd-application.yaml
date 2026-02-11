@@ -9,8 +9,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/gjhenrique-prezi/kargo-test.git
-    targetRevision: stage/preprod
-    path: .
+    targetRevision: master
+    path: apps/testapp/stages/preprod
   destination:
     server: https://kubernetes.default.svc
     namespace: testapp-preprod
@@ -32,14 +32,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/gjhenrique-prezi/kargo-test.git
-    targetRevision: stage/production
-    path: .
+    targetRevision: master
+    path: apps/testapp/stages/production
   destination:
     server: https://kubernetes.default.svc
     namespace: testapp-production
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true

@@ -16,31 +16,21 @@ spec:
         checkout:
           - branch: master
             path: ./src
-          - branch: stage/${{ ctx.stage }}
-            create: true
-            path: ./out
-    - uses: git-clear
-      config:
-        path: ./out
     - uses: kustomize-set-image
       as: update
       config:
-        path: ./src/apps/testapp/base
+        path: ./src/apps/testapp/stages/${{ ctx.stage }}
         images:
           - image: ${{ vars.imageRepo }}
             tag: ${{ imageFrom(vars.imageRepo).Tag }}
-    - uses: kustomize-build
-      config:
-        path: ./src/apps/testapp/stages/${{ ctx.stage }}
-        outPath: ./out
     - uses: git-commit
       as: commit
       config:
-        path: ./out
+        path: ./src
         message: ${{ task.outputs.update.commitMessage }}
     - uses: git-push
       config:
-        path: ./out
+        path: ./src
     - uses: argocd-update
       config:
         apps:
