@@ -54,6 +54,27 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: kargo-project-testapp
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gjhenrique-prezi/kargo-test.git
+    targetRevision: master
+    path: kargo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: testapp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
   name: testapp-preprod
   namespace: argocd
   labels:
