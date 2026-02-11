@@ -1,0 +1,15 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Project
+metadata:
+  name: testapp
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: ProjectConfig
+metadata:
+  name: testapp
+  namespace: testapp
+spec:
+  promotionPolicies:
+    - stageSelector:
+        name: preprod
+      autoPromotionEnabled: true

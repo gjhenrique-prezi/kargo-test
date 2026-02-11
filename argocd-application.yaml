@@ -1,17 +1,42 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: testapp
+  name: testapp-preprod
   namespace: argocd
+  labels:
+    kargo.akuity.io/project: testapp
 spec:
   project: default
   source:
     repoURL: https://github.com/gjhenrique-prezi/kargo-test.git
-    targetRevision: master
-    path: apps/testapp
+    targetRevision: stage/preprod
+    path: .
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: testapp-preprod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testapp-production
+  namespace: argocd
+  labels:
+    kargo.akuity.io/project: testapp
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gjhenrique-prezi/kargo-test.git
+    targetRevision: stage/production
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: testapp-production
   syncPolicy:
     automated:
       prune: true
