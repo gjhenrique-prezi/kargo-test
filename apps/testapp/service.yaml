@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: guestbook
+  name: testapp
 spec:
   selector:
-    app: guestbook
+    app: testapp
   ports:
     - port: 80
       targetPort: 80
